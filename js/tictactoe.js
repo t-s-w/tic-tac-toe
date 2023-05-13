@@ -23,6 +23,7 @@ class Game {
         this.aiMode = aiMode;
     }
 }
+const aiTurnDelay = 2000;
 
 /*----- state variables -----*/
 let gameState = new Game();
@@ -129,6 +130,10 @@ function takeTurn(cellNo) {
         }
     }
     render();
+    if (gameState.aiMode === 1 && gameState.currentTurn === 1) {
+        decision = decide(gameState.board);
+        setTimeout(function () { takeTurn(decision) }, aiTurnDelay);
+    }
 }
 
 function returnMain() {
@@ -143,4 +148,14 @@ function changeScreen(screen) {
         document.querySelector('#' + screen).classList.add('hidden');
     }
     document.querySelector('#' + screen).classList.remove('hidden');
+}
+
+// CPU decision mechanics 
+
+function decide(board) {
+    if (board[4] === undefined) {
+        return 4;
+    } else {
+        return 8;
+    }
 }
