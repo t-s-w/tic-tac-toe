@@ -5,6 +5,13 @@ const winningLines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2,
 const gameBoard = document.querySelector('#gameBoard');
 const cat = String.fromCodePoint(0x1F431);
 const dog = String.fromCodePoint(0x1F436);
+const statusMsgs = {
+    turn0: dog + "'s Turn!",
+    turn1: cat + "'s Turn!",
+    win0: dog + " wins!",
+    win1: cat + " wins!"
+}
+const gameStatusUI = document.querySelector('#gameStatus');
 
 /*----- state variables -----*/
 let gameState = {
@@ -23,6 +30,7 @@ let gameState = {
 
 function render() {
     renderBoard();
+    renderGameStatus();
 }
 
 function renderBoard() {
@@ -62,6 +70,16 @@ function renderBoard() {
     }
     gameBoard.innerHTML = '';
     gameBoard.appendChild(board);
+}
+
+function renderGameStatus() {
+    let msg = '';
+    if (gameState.winner !== undefined) {
+        msg = statusMsgs['win' + gameState.winner];
+    } else {
+        msg = statusMsgs['turn' + gameState.currentTurn];
+    }
+    gameStatusUI.innerHTML = msg;
 }
 
 function takeTurn(cellNo) {
