@@ -182,7 +182,7 @@ function changeScreen(screen) {
 }
 
 // CPU decision mechanics 
-
+// logic derived from https://xkcd.com/832/
 function decide(board) {
     // 1st turn handling
     if (board[4] === undefined) {
