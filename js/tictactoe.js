@@ -142,7 +142,7 @@ function takeTurn(cellNo) {
         }
     }
     render();
-    if (gameState.aiMode === 1 && gameState.currentTurn === 1 && gameState.winner === undefined) {
+    if (gameState.aiMode === 1 && gameState.currentTurn === 1 && (gameState.winner === undefined)) {
         decision = decide(gameState.board);
         setTimeout(function () { takeTurn(decision) }, aiTurnDelay);
     }
