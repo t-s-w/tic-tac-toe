@@ -9,16 +9,18 @@ const dog = String.fromCodePoint(0x1F436);
 const statusMsgs = {
     turn0: dog + "'s Turn!",
     turn1: cat + "'s Turn!",
+    cputurn1: cat + " is thinking...",
     win0: dog + " wins!",
     win1: cat + " wins!",
     win2: dog + " It's a tie! " + cat
 }
 const gameStatusUI = document.querySelector('#gameStatus');
 class Game {
-    constructor() {
+    constructor(aiMode = 0) {
         this.board = [];
         this.currentTurn = 0;
         this.winningCells = [];
+        this.aiMode = aiMode;
     }
 }
 
@@ -83,8 +85,12 @@ function renderGameStatus() {
     let msg = '';
     if (gameState.winner !== undefined) {
         msg = statusMsgs['win' + gameState.winner];
+    } else if (gameState.currentTurn === 0) {
+        msg = statusMsgs['turn0'];
+    } else if (gameState.aiMode === 1) {
+        msg = statusMsgs.cputurn1;
     } else {
-        msg = statusMsgs['turn' + gameState.currentTurn];
+        msg = statusMsgs.turn1;
     }
     gameStatusUI.innerHTML = msg;
 }
@@ -99,8 +105,8 @@ function renderResetButton() {
 
 // game flow control
 
-function startGame() {
-    gameState = new Game();
+function startGame(aiMode) {
+    gameState = new Game(aiMode);
     changeScreen('boardUI');
     render();
 }
