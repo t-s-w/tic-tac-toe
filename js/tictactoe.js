@@ -98,7 +98,7 @@ function renderBoard() {
                 if (!gameState.winningCells.includes(cellNo)) {
                     cell.classList.add('nonWinning');
                 }
-            } else if (cellState === undefined) {
+            } else if (cellState === undefined && !(gameState.currentTurn && gameState.aiMode)) {
                 // else if not won yet, add clickability to the cell if it's still empty
                 cell.classList.add('clickable');
                 cell.addEventListener('click', function () { takeTurn(cellNo) });
