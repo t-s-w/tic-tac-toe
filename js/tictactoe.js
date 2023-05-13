@@ -23,6 +23,18 @@ class Game {
         this.aiMode = aiMode;
     }
 }
+
+class cellEnumerate {
+    constructor(line) {
+        this[0] = [];
+        this[1] = [];
+        this[undefined] = [];
+        for (let cell of line) {
+            this[gameState.board[cell]].push(cell);
+        }
+    }
+}
+
 const aiTurnDelay = 2000;
 
 /*----- state variables -----*/
@@ -153,9 +165,27 @@ function changeScreen(screen) {
 // CPU decision mechanics 
 
 function decide(board) {
+    // 1st turn handling
     if (board[4] === undefined) {
         return 4;
-    } else {
-        return 8;
     }
+    if (board[4] === 0 && board[0] === undefined) {
+        return 0;
+    }
+    // 2nd turn onwards handling
+    // if winning potential exists then win
+    for (let winningLine of winningLines) {
+        let counter = new cellEnumerate(winningLine);
+        if (counter[1].length === 2 && counter[undefined].length === 1) {
+            return counter[undefined][0];
+        }
+    }
+    // if player about to win then block
+    for (let winningLine of winningLines) {
+        let counter = new cellEnumerate(winningLine);
+        if (counter[0].length === 2 && counter[undefined].length === 1) {
+            return counter[undefined][0];
+        }
+    }
+
 }
