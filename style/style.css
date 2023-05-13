@@ -1,15 +1,29 @@
+:root {
+    --dark-blue: rgb(14, 38, 52);
+    --message-text: rgb(206, 215, 224);
+    --borders: rgb(85, 145, 169);
+    --hover-bg: rgba(156, 205, 220, 0.3);
+    --button-bg: rgba(156, 205, 220, 0.2);
+}
+
 body {
+    color: var(--message-text);
+    background: var(--dark-blue);
     font-family: 'Segoe UI', Tahoma, Verdana, sans-serif
+}
+
+.clickable:hover {
+    background: var(--hover-bg);
 }
 
 .gameBoard {
     border-collapse: collapse;
     border-style: hidden;
-    margin: 50px auto;
+    margin: 0 auto;
 }
 
 .gameBoard .cell {
-    border: 5px solid #333;
+    border: 5px solid var(--borders);
     padding: 5px;
     width: 150px;
     height: 150px;
@@ -30,10 +44,40 @@ h1 {
 
 h2 {
     text-align: center;
-    margin: 10px;
+    margin: 4% 0 0 0;
     font-size: 40px;
 }
 
 .hidden {
     display: none;
+}
+
+.button {
+    border: 3px var(--borders);
+    border-radius: 15px;
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: middle;
+    padding: 20px;
+    background: var(--button-bg);
+    width: 15%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background: var(--hover-bg);
+}
+
+#resetContainer {
+    height: 70px;
+    margin: 20px 0;
+}
+
+/* disable text selection class: from https://stackoverflow.com/questions/10809995/css-disable-text-selection */
+.disable-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

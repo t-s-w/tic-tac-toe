@@ -10,16 +10,19 @@
     <title>tic-cat-toe!</title>
 </head>
 
-<body>
+<body class="disable-select">
     <div id="startUI">
         <h1>tic cat toe!</h1>
-        <span style="text-align:center;"><button id="startButton" onclick="startGame()">start game</button></span>
+        <div id="startButton" class="button" style="margin-top:3%;" onclick="startGame()">start game</div>
     </div>
     <div id="boardUI" class="hidden">
         <h2 id="gameStatus"></h2>
+        <div id="resetContainer">
+            <div id="resetButton" class="hidden button" onclick="returnMain()">return to main menu</div>
+        </div>
+
         <div id="gameBoard"></div>
-        <span style="text-align:center;"><button id="resetButton" class="hidden"
-                onclick="returnMain()">Reset</button></span>
+
     </div>
 
 </body>

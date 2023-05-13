@@ -66,6 +66,7 @@ function renderBoard() {
                 }
             } else if (cellState === undefined) {
                 // else if not won yet, add clickability to the cell if it's still empty
+                cell.classList.add('clickable');
                 cell.addEventListener('click', function () { takeTurn(cellNo) });
             }
             cell.innerHTML = content;
