@@ -11,11 +11,15 @@
 </head>
 
 <body>
-    <div id="startUI"></div>
-    <div id="boardUI">
-        <button onclick="render()">render</button>
+    <div id="startUI">
+        <h1>tic cat toe!</h1>
+        <span style="text-align:center;"><button id="startButton" onclick="startGame()">start game</button></span>
+    </div>
+    <div id="boardUI" class="hidden">
         <h2 id="gameStatus"></h2>
         <div id="gameBoard"></div>
+        <span style="text-align:center;"><button id="resetButton" class="hidden"
+                onclick="returnMain()">Reset</button></span>
     </div>
 
 </body>

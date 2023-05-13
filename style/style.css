@@ -22,8 +22,18 @@ body {
     color: rgba(0, 0, 0, 0.3);
 }
 
-#gameStatus {
+h1 {
+    text-align: center;
+    margin: 100px 0 0 0;
+    font-size: 72px;
+}
+
+h2 {
     text-align: center;
     margin: 10px;
     font-size: 40px;
+}
+
+.hidden {
+    display: none;
 }
