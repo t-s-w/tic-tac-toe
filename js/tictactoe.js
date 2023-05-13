@@ -8,8 +8,9 @@ const dog = String.fromCodePoint(0x1F436);
 
 /*----- state variables -----*/
 let gameState = {
-    board: [[, , ,], [, , ,], [, , ,]],
-    currentTurn: 0
+    board: [, , , , , , , , ,],
+    currentTurn: 0,
+    winningCells: [],
 }
 
 /*----- cached elements  -----*/
@@ -32,19 +33,25 @@ function renderBoard() {
         row.id = 'row' + rowNo;
         row.classList.add('row');
         for (let colNo of [0, 1, 2]) {
-            let cellState = gameState.board[rowNo][colNo];
             let cellNo = rowNo * 3 + colNo;
+            let cellState = gameState.board[cellNo];
             let cell = document.createElement('td');
             cell.id = 'cell' + cellNo;
             cell.classList.add('cell');
             let content = '';
-            if (cellState !== undefined) {
-                if (cellState) {
-                    content = dog;
-                } else {
-                    content = cat;
+            // define content of the cell
+            if (cellState === 0) {
+                content = dog;
+            } else if (cellState === 1) {
+                content = cat;
+            }
+            // if game has been won, add / remove appropriate styling for the cell
+            if (gameState.winner !== undefined) {
+                if (!gameState.winningCells.includes(cellNo)) {
+                    cell.classList.add('nonWinning');
                 }
-            } else {
+            } else if (cellState === undefined) {
+                // else if not won yet, add clickability to the cell if it's still empty
                 cell.addEventListener('click', function () { takeTurn(cellNo) });
             }
             cell.innerHTML = content;
@@ -58,7 +65,17 @@ function renderBoard() {
 }
 
 function takeTurn(cellNo) {
-    gameState.board[Math.floor(cellNo / 3)][cellNo % 3] = gameState.currentTurn;
-    gameState.currentTurn = 1 - gameState.currentTurn;
+    gameState.board[cellNo] = gameState.currentTurn;
+    for (let line of winningLines) {
+        if (line.includes(cellNo)) {
+            if (line.every(function (cell) { return gameState.board[cell] === gameState.currentTurn })) {
+                gameState.winner = gameState.currentTurn;
+                line.forEach(function (cell) { gameState.winningCells.push(cell); });
+            }
+        }
+    }
+    if (gameState.winner === undefined) {
+        gameState.currentTurn = 1 - gameState.currentTurn;
+    }
     render();
 }
