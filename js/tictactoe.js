@@ -9,7 +9,8 @@ const statusMsgs = {
     turn0: dog + "'s Turn!",
     turn1: cat + "'s Turn!",
     win0: dog + " wins!",
-    win1: cat + " wins!"
+    win1: cat + " wins!",
+    win2: dog + " It's a tie! " + cat
 }
 const gameStatusUI = document.querySelector('#gameStatus');
 
@@ -94,6 +95,10 @@ function takeTurn(cellNo) {
     }
     if (gameState.winner === undefined) {
         gameState.currentTurn = 1 - gameState.currentTurn;
+        // check for tie
+        if ([0, 1, 2, 3, 4, 5, 6, 7, 8].every(function (cell) { return gameState.board[cell] !== undefined })) {
+            gameState.winner = 2;
+        }
     }
     render();
 }
