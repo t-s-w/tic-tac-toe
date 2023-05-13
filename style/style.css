@@ -1,0 +1,14 @@
+.gameBoard {
+    border-collapse: collapse;
+    border-style: hidden;
+    margin: 50px auto;
+}
+
+.gameBoard .cell {
+    border: 5px solid #333;
+    padding: 5px;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    vertical-align: center;
+}
