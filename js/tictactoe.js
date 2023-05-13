@@ -244,7 +244,7 @@ function decide(board) {
         else {
             return 2;
         }
-    } else {
+    } else if (counter.diagonal.length + counter.edge.length + counter.centre.length === 3) {
         // all other cases covered, only need to hardcode 3rd turn in 3 scenarios up to symmetry
         console.log('3rd turn');
         if (counter.edge.length === 2) {
@@ -254,6 +254,13 @@ function decide(board) {
         } else {
             // i coded this to cover the case where player picks cell 4 -> cell 1 -> cell 8 or 4 -> 3 -> 8 but somehow this covers other cases too lol
             return board[1] === 0 ? 6 : 2;
+        }
+    } else {
+        // just pick one, game is over at this point
+        for (let cell of [0, 1, 2, 3, 4, 5, 6, 7, 8]) {
+            if (board[cell] === undefined) {
+                return cell;
+            }
         }
     }
 }
